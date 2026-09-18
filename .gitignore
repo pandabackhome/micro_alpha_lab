@@ -5,3 +5,7 @@
 *.egg-info/
 data/
 results/research/
+
+# Symlink to the offsite archive; the tapes are not this repo to carry.
+recordings
+data_old_2day/
