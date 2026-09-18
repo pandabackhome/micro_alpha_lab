@@ -49,24 +49,40 @@ def walk_forward_train(dataset: pd.DataFrame, config: Dict, model_name: str = "l
         x_test = test[columns].replace([np.inf, -np.inf], np.nan)
         # Entirely empty training columns are removed before the imputer.
         usable = x_train.columns[x_train.notna().any()].tolist()
-        model.fit(x_train[usable], train[target])
         x_validation = validation[usable].replace([np.inf, -np.inf], np.nan)
+        # A sequence model cuts the rows into windows and must not let one span
+        # two sessions, so it is handed the session key per row. Row-wise models
+        # neither need it nor accept it, hence the declared flags rather than a
+        # signature every estimator would have to grow.
+        fit_kwargs = {}
+        if getattr(model, "requires_groups", False):
+            fit_kwargs["groups"] = train["date"].to_numpy()
+        if getattr(model, "uses_validation", False) and len(validation):
+            # Early stopping only. These rows never enter a gradient; without
+            # them a net this size fits ten sessions perfectly and reports it.
+            fit_kwargs["eval_set"] = (x_validation, validation[target].to_numpy(),
+                                      validation["date"].to_numpy())
+        model.fit(x_train[usable], train[target], **fit_kwargs)
+        score_kwargs = ({"groups": test["date"].to_numpy()}
+                        if getattr(model, "requires_groups", False) else {})
+        validation_kwargs = ({"groups": validation["date"].to_numpy()}
+                             if getattr(model, "requires_groups", False) else {})
         scored = test[list(dict.fromkeys(["timestamp", "date", target, "future_ret_30s", "mfe_30s", "mae_30s"]))].copy()
         scored["fold"] = fold
         if regression:
-            scored["prediction"] = model.predict(x_test[usable])
+            scored["prediction"] = model.predict(x_test[usable], **score_kwargs)
             summaries.append({"fold": fold, "train_days": list(split.train), "validation_days": list(split.validation),
                               "test_days": list(split.test), "sample_count": len(test),
                               "validation_sample_count": len(validation),
-                              "validation_mae": float(np.mean(np.abs(model.predict(x_validation) - validation[target]))) if len(validation) else None,
+                              "validation_mae": float(np.mean(np.abs(model.predict(x_validation, **validation_kwargs) - validation[target]))) if len(validation) else None,
                               "mae": float(np.mean(np.abs(scored["prediction"] - test[target]))),
                               "correlation": scored["prediction"].corr(test[target])})
         else:
-            probabilities = model.predict_proba(x_test[usable])
+            probabilities = model.predict_proba(x_test[usable], **score_kwargs)
             classes = list(model.classes_)
             for cls in classes:
                 scored["prob_" + str(cls).lower()] = probabilities[:, classes.index(cls)]
-            predicted = model.predict(x_test[usable])
+            predicted = model.predict(x_test[usable], **score_kwargs)
             scored["prediction"] = predicted
             true_up = (test[target] == "UP").astype(int).to_numpy()
             prob_up = scored.get("prob_up", pd.Series(np.zeros(len(test)), index=test.index)).to_numpy()
@@ -85,7 +101,7 @@ def walk_forward_train(dataset: pd.DataFrame, config: Dict, model_name: str = "l
             summary["confusion_matrix"] = confusion_matrix(test[target], predicted, labels=labels_order).tolist()
             if len(validation):
                 val_up = (validation[target] == "UP").astype(int).to_numpy()
-                val_probs = model.predict_proba(x_validation)
+                val_probs = model.predict_proba(x_validation, **validation_kwargs)
                 val_prob_up = val_probs[:, classes.index("UP")] if "UP" in classes else np.zeros(len(validation))
                 summary["validation_roc_auc_up"] = roc_auc_score(val_up, val_prob_up) if len(set(val_up)) > 1 else None
                 summary["validation_pr_auc_up"] = average_precision_score(val_up, val_prob_up) if len(set(val_up)) > 1 else None

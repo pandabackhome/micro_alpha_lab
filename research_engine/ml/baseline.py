@@ -32,4 +32,10 @@ def make_model(name: str = "logistic", task: str = "classification"):
             raise ImportError("Install optional dependency: pip install '.[xgboost]'") from exc
         estimator = xgb.XGBClassifier(n_estimators=150, max_depth=6, random_state=42) if task == "classification" else xgb.XGBRegressor(n_estimators=150, max_depth=6, random_state=42)
         return make_pipeline(SimpleImputer(strategy="median", add_indicator=True), estimator)
+    if name == "lstm":
+        # Not wrapped in a pipeline: the imputer and scaler have to run before
+        # the rows are cut into windows, so the estimator owns them. It also
+        # needs the session key per row, which a pipeline has no way to pass.
+        from research_engine.ml.sequence import SequenceClassifier
+        return SequenceClassifier(task=task)
     raise ValueError("unknown model: {}".format(name))

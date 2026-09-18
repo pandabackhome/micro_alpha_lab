@@ -28,6 +28,9 @@ include = ["research_engine*"]
 test = ["pytest>=8,<9"]
 lightgbm = ["lightgbm>=4"]
 xgboost = ["xgboost>=2"]
+# CPU wheels are enough: the sequence model is sized for ten sessions of
+# strided rows, which trains in seconds on a laptop core.
+torch = ["torch>=2,<2.5"]
 plots = ["matplotlib>=3.7"]
 shap = ["shap>=0.44"]
 

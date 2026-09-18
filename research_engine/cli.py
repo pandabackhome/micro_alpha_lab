@@ -122,7 +122,7 @@ def main(argv=None):
     analyze.add_argument("--stride", type=int, default=5)
     analyze.add_argument("--data-root", type=Path, help="read existing features and labels from this directory")
     train = sub.add_parser("train", help="day-split baseline model")
-    train.add_argument("--model", default="logistic", choices=["logistic", "random_forest", "lightgbm", "xgboost"])
+    train.add_argument("--model", default="logistic", choices=["logistic", "random_forest", "lightgbm", "xgboost", "lstm"])
     train.add_argument("--stride", type=int, default=10)
     train.add_argument("--data-root", type=Path, help="read existing features and labels from this directory")
     backtest = sub.add_parser("backtest", help="next-available ask/bid simulation")
