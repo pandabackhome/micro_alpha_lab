@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "micro-alpha-lab"
+version = "0.1.0"
+description = "Leakage-aware QQQ and 0DTE options microstructure research toolkit"
+requires-python = ">=3.8"
+dependencies = [
+  "numpy>=1.24,<2",
+  "pandas>=2.0,<2.1",
+  "polars>=0.20,<0.21",
+  "pyarrow>=17,<18",
+  "PyYAML>=6,<7",
+  "scikit-learn>=1.3,<1.4",
+]
+
+# Without this, setuptools' flat-layout auto-discovery treats every top-level
+# directory as a package and refuses to build once `data/`, `results/` or
+# `research/` exist beside the source. Those hold parquet, reports and notes,
+# not importable code; naming the one real package keeps a working tree with
+# data in it installable.
+[tool.setuptools.packages.find]
+include = ["research_engine*"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<9"]
+lightgbm = ["lightgbm>=4"]
+xgboost = ["xgboost>=2"]
+plots = ["matplotlib>=3.7"]
+shap = ["shap>=0.44"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

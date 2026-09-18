@@ -1,0 +1,82 @@
+paths:
+  recordings: recordings
+  data: data
+  results: results/research
+
+underlying: QQQ.US
+timezone: America/New_York
+snapshot_interval: 1s
+dedup_mode: none
+session:
+  open: "09:30:00"
+  close: "16:00:00"
+
+features:
+  returns:
+    windows: [1, 3, 5, 10, 30, 60]
+  momentum:
+    windows: [5, 10, 30]
+  ranges:
+    windows: [10, 30]
+  trade_flow:
+    windows: [1, 3, 5, 10, 30]
+  orderbook:
+    windows: [1, 3, 5, 10]
+    levels: [1, 5, 10]
+  volatility:
+    windows: [5, 10, 30, 60, 300]
+
+labels:
+  forward_returns:
+    horizons: [5, 10, 30, 60, 180, 300]
+  direction:
+    horizons: [30, 60]
+    threshold_bps: 5
+    # Scale the direction band by realised volatility at the timestamp instead
+    # of asking every session for a fixed 5bp. vol_30s is causal (past bars
+    # only), so the label's definition stays free of the future. Over the 18
+    # recorded days this holds the non-FLAT rate at 8.1% +/- 0.6 (1.3x spread)
+    # where the fixed band swung 1.8%-10.3% (5.7x). Remove both keys to go
+    # back to the fixed band; nothing else changes.
+    vol_column: vol_30s
+    vol_k: 2.0
+  excursions:
+    horizons: [30, 60, 180, 300]
+
+options:
+  relative_strikes: [-3, -2, -1, 0, 1, 2, 3]
+  volume_windows: [1, 5, 30]
+  return_windows: [1, 5, 10]
+  flow_window: 5
+  near_atm_distance: 0.003
+  volume_burst_lookback: 300
+
+walk_forward:
+  train_days: 10
+  validation_days: 2
+  test_days: 1
+  expanding: true
+
+model:
+  name: logistic
+  classification_label: future_direction_30s
+  regression_label: future_ret_30s
+  probability_thresholds: [0.6, 0.7, 0.8]
+
+execution:
+  mode: underlying
+  slippage_bps: 1
+  commission_per_contract: 1.50
+  option_multiplier: 100
+
+exit:
+  max_holding_seconds: 180
+  stop_loss_pct: -0.20
+  take_profit_pct: 0.30
+  trailing_stop_pct: null
+
+rules:
+  - name: buy_pressure
+    conditions:
+      depth_imbalance: "> 0.6"
+      trade_imbalance_5s: "> 0.5"

@@ -1,0 +1,198 @@
+{
+  "description": "Frozen original fourteen dates plus the two locally built dates; later backfills are excluded.",
+  "original_dates": [
+    "2026-08-24",
+    "2026-08-25",
+    "2026-08-26",
+    "2026-08-27",
+    "2026-08-28",
+    "2026-08-31",
+    "2026-09-01",
+    "2026-09-02",
+    "2026-09-03",
+    "2026-09-04",
+    "2026-09-08",
+    "2026-09-11",
+    "2026-09-14",
+    "2026-09-15"
+  ],
+  "added_dates": [
+    "2026-09-16",
+    "2026-09-17"
+  ],
+  "discovery_dates": [
+    "2026-08-31",
+    "2026-09-01",
+    "2026-09-02",
+    "2026-09-03",
+    "2026-09-04"
+  ],
+  "check_dates": [
+    "2026-09-08",
+    "2026-09-11",
+    "2026-09-14",
+    "2026-09-15"
+  ],
+  "sources": [
+    {
+      "origin": "archive",
+      "file": "features/2026-08-24.parquet",
+      "sha256": "8681621d312038b547292082709c77b567499c45253f14b07a5e50c73a069d78"
+    },
+    {
+      "origin": "archive",
+      "file": "normalized/2026-08-24/events.parquet",
+      "sha256": "500132215ef0fe30fccffd0d2f651dc652c19f231c68ab22d1bbfe4dcb8fc91f"
+    },
+    {
+      "origin": "archive",
+      "file": "features/2026-08-25.parquet",
+      "sha256": "8f49036690fa982e146635589905e9d2c82059006a2cc36a232afecb8e336a76"
+    },
+    {
+      "origin": "archive",
+      "file": "normalized/2026-08-25/events.parquet",
+      "sha256": "4de8a7b136aa182e132907d49f1b047cea13f0001469e85312e440cfa12a6c37"
+    },
+    {
+      "origin": "archive",
+      "file": "features/2026-08-26.parquet",
+      "sha256": "b78a24bc76b6b1d7464bc04ed7059ac945a5335fe41f783f679322d584c600d1"
+    },
+    {
+      "origin": "archive",
+      "file": "normalized/2026-08-26/events.parquet",
+      "sha256": "f0f558858c54e40e7e69068f80538a3139b4e3d5932af64a3aca92f87b992855"
+    },
+    {
+      "origin": "archive",
+      "file": "features/2026-08-27.parquet",
+      "sha256": "06c36c0c9ab0e19e2d05a7717926965be3335a5a14ca93cf90ffe1c6775c27ed"
+    },
+    {
+      "origin": "archive",
+      "file": "normalized/2026-08-27/events.parquet",
+      "sha256": "f57da8affff3bfb48f4ea32234896d5d9c01921720c32dcb5ab24722b8286d51"
+    },
+    {
+      "origin": "archive",
+      "file": "features/2026-08-28.parquet",
+      "sha256": "02e736f49156d6403423a305068cac760438bece4dfbd6d9abb34a900f6820ed"
+    },
+    {
+      "origin": "archive",
+      "file": "normalized/2026-08-28/events.parquet",
+      "sha256": "9de9553ac32d48a5b28a21652f8cd324968c177066040589b69ea56b02337baa"
+    },
+    {
+      "origin": "archive",
+      "file": "features/2026-08-31.parquet",
+      "sha256": "c48b7d1847853887f22d0c53a4f06e5a2346d6d2c7682260f55aa80ade06f5b8"
+    },
+    {
+      "origin": "archive",
+      "file": "normalized/2026-08-31/events.parquet",
+      "sha256": "5e0d0a6ad34a11582b91b8aebb8867393274ad6f11e04d7c31626c029915b8cb"
+    },
+    {
+      "origin": "archive",
+      "file": "features/2026-09-01.parquet",
+      "sha256": "5a882570990f93e16658a8f3937c8799f48fa8a8a8f6d807dd9ea192aca7880a"
+    },
+    {
+      "origin": "archive",
+      "file": "normalized/2026-09-01/events.parquet",
+      "sha256": "13c0787006a3da9445a2ff9add549647b4ba010bcd995ce715b6a1b6e7b44bd1"
+    },
+    {
+      "origin": "archive",
+      "file": "features/2026-09-02.parquet",
+      "sha256": "ca88bd903dc0085672ae852dd8d80d46509c66d784458b06cc9412a7918f0f63"
+    },
+    {
+      "origin": "archive",
+      "file": "normalized/2026-09-02/events.parquet",
+      "sha256": "0fc11491473c01e47b053cb549ef78df1d01cd86bd2982aca367899c06c00cde"
+    },
+    {
+      "origin": "archive",
+      "file": "features/2026-09-03.parquet",
+      "sha256": "f7d7c46e738e374304fc2fe8213ed0e2241255306e4593bf3b526a3467960aee"
+    },
+    {
+      "origin": "archive",
+      "file": "normalized/2026-09-03/events.parquet",
+      "sha256": "c5f7def50ede25f9d27f53df66dcb7421cb379cb3d47d5dde4e4da4464b7cfd2"
+    },
+    {
+      "origin": "archive",
+      "file": "features/2026-09-04.parquet",
+      "sha256": "38a3e314219886b2a423b21046a7c7bcc5525b5e1a2faaedfadaecc37dce7428"
+    },
+    {
+      "origin": "archive",
+      "file": "normalized/2026-09-04/events.parquet",
+      "sha256": "21f0619fe28993d3e2f0c7498605f5ba5b9735d7a9655fe0b9eb151033e52e44"
+    },
+    {
+      "origin": "archive",
+      "file": "features/2026-09-08.parquet",
+      "sha256": "7500349cd521fa2086d732a2d2745043107411f0b79194baaa20a0e6e89e36be"
+    },
+    {
+      "origin": "archive",
+      "file": "normalized/2026-09-08/events.parquet",
+      "sha256": "59e546eff60bf25af873f4a8f63f059f5b351c98274b718d1b69172ef9838888"
+    },
+    {
+      "origin": "archive",
+      "file": "features/2026-09-11.parquet",
+      "sha256": "32128e02db268a4ffe8d2bcf7ba6db3df2b5214b7464eabd3afa09eab9d4c6c8"
+    },
+    {
+      "origin": "archive",
+      "file": "normalized/2026-09-11/events.parquet",
+      "sha256": "380f3d2ee45ba844706bd74b867bca825257baf1ace65d64d2436c183a7caa6a"
+    },
+    {
+      "origin": "archive",
+      "file": "features/2026-09-14.parquet",
+      "sha256": "4506b9ddf41ca1e234f9901b536be46ef2eea986bbd6d69835549d3003697716"
+    },
+    {
+      "origin": "archive",
+      "file": "normalized/2026-09-14/events.parquet",
+      "sha256": "e495e70027015e3e5abf515173e703ce53da146346fd709e69b9b537355a5db6"
+    },
+    {
+      "origin": "archive",
+      "file": "features/2026-09-15.parquet",
+      "sha256": "76dec7ea0e4e7b6b8877b44d98d4a01a343367789c3f92c66fcc446f6c82a0af"
+    },
+    {
+      "origin": "archive",
+      "file": "normalized/2026-09-15/events.parquet",
+      "sha256": "84ab94591cf192b219befd0ff4d85533824f052b70fa90df4738b63f0a6a7fa8"
+    },
+    {
+      "origin": "local",
+      "file": "features/2026-09-16.parquet",
+      "sha256": "778f50a6363b966fc3756cb5d68ff8bd6d4c66adf8c788e8b4e3252ada118bf1"
+    },
+    {
+      "origin": "local",
+      "file": "normalized/2026-09-16/events.parquet",
+      "sha256": "8b26da2cb0c792bf25352ba535a16a04385c1cc2766fa4cd95b25bb55f65bb30"
+    },
+    {
+      "origin": "local",
+      "file": "features/2026-09-17.parquet",
+      "sha256": "812fd21eb40d012af4f1d001a7fccb8911cd8e6398e7b11afa9ac0782f5118dc"
+    },
+    {
+      "origin": "local",
+      "file": "normalized/2026-09-17/events.parquet",
+      "sha256": "4c5a82d9981232e918dfc82cd7e36ce5e8e480d0a76003b4a96f9c2c39abc963"
+    }
+  ]
+}
